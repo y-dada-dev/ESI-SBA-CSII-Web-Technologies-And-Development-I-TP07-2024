@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<style>
+			label{
+				width: 200px;
+				display: inline-block;
+			}
+			form div{
+				margin-top:16px;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<div>
+				<label>Etat civil</label>
+				<select  value="" id="etat">
+					<option value="" selected></option>
+					<option value="Mr">Mr</option>
+					<option value="Mme">Mme</option>
+				</select>
+			</div>
+			<div>
+				<label>Nom</label>
+				<input type="text" id="fName"/>
+			</div>
+			<div>
+				<label>Prenom</label>
+				<input type="text" id="lName"/>
+			</div>
+			<div>
+				<label>Nom complete</label>
+				<input type="text" id="fullName" readonly/>
+			</div>
+			<div>
+				<label>Nivea en java script</label>
+				<input type="range" id="nv" value="50"/>
+				<span id="span">50</span>
+			</div>
+			<div>
+				<label>Mot de passe</label>
+				<input type="password" id="p1"/>
+			</div>
+			<div>
+				<label>Confirmation Mot de passe</label>
+				<input type="password" id="p2"/>
+			</div>
+			<div>
+				<button type="reset" id="b1">Reinitialiser</button>
+				<button id="b2" disabled>Envoyer</button>
+			</div>
+		</form>
+		<script src="jquery.min.js"></script>
+		<script>
+			function up(){
+				$("#fullName").val($("#etat").val()+" "+$("#fName").val()+" "+$("#lName").val());
+			}
+			function check(){
+				i = 0;
+				$("input").each(function(){
+					if($(this).val()==""){
+						i++;
+						return false;
+					}
+				})
+				if($("#etat").val()==""){ i++;}
+				if($("#p1").val()!=$("#p2").val()){
+					i++;
+				}	
+				if(i==0)
+					$("#b2").prop("disabled",false);
+				else
+					$("#b2").prop("disabled",true);
+			}
+			$(document).ready(function(){
+				$("#etat").on("input",function(){
+					up();
+					check();
+				});
+				$("#fName").on("input",function(){
+					up();
+				});
+				$("#lName").on("input",function(){
+					up();
+				});
+				$("input").on("input",function(){
+					check();
+				});
+				$("#nv").on("input",function(){
+					$("#span").html($("#nv").val());
+				});
+			});
+		</script>
+	</body>
+</html>
